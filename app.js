@@ -10,8 +10,6 @@ var mongoose = require('mongoose');
 
 mongoose.connect(process.env.DB_CONN_TRIPTRAKER);
 
-
-
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
