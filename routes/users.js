@@ -1,35 +1,43 @@
 var express = require('express');
-var router = express.Router();
+var passport = require('passport');
 var User = require('../models/user');
+var days = require('./days');
+var router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  User.find({}, function(err, users) {
-    res.render('user/index', {users: users} )
-  });
 
+router.get('/', function (req, res) {
+    res.render('index');
 });
 
-router.get('/new', function(req, res, next) {
-  res.render('user/new');
+router.get('/new', function(req, res) {
+    res.render('auth/register');
 });
 
-router.post('/', function(req, res, next) {
-  // create a new user
-  var email = req.body.email;
-  var password = req.body.password;
+router.post('/register', function(req, res) {
+  User.register(new User({ email: req.body.email }), req.body.password, function(err, user) {
+      if (err) {
+        console.log(user);
+        console.log(err);
+          return res.render('auth/register', { user : user });
+      }
 
-  var newUser = User({
-    email: email,
-    password: password
+      passport.authenticate('local')(req, res, function () {
+        res.redirect('/');
+      });
   });
-  newUser.save(function(err) {
-    if (err) throw err;
-
-    res.send('user made')
-  });
-
 });
 
+router.get('/login', function(req, res) {
+    res.render('auth/login');
+});
+
+router.post('/login', passport.authenticate('local'), function(req, res) {
+    res.redirect('/');
+});
+
+router.get('/logout', function(req, res) {
+    req.logout();
+    res.redirect('/');
+});
 
 module.exports = router;

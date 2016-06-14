@@ -16,7 +16,8 @@ mongoose.connect(process.env.DB_CONN_TRIPTRAKER);
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var auth = require('./routes/auth');
+var trips = require('./routes/trips');
+var days = require('./routes/days');
 
 var app = express();
 
@@ -48,7 +49,7 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/auth', auth);
+app.use('/trips', trips);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

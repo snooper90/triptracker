@@ -2,9 +2,10 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
     var tripSchema = new Schema({
-      name:{type: String, required: true}
-      start_date: { type: Date, required: true, unique: true },
-      end_date:{ type: Date, required: true, unique: true },
+      userId:String,
+      name:{type: String, required: true},
+      start_date: { type: Date, required: true},
+      end_date:{ type: Date, required: true},
       created_at: Date,
       updated_at: Date
       // should I list the dates between start and end?

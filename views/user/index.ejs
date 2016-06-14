@@ -1,4 +1,9 @@
+<% include ../partials/headder %>
+
+
 <% for(var i=0 ; i <users.length ; i++){ %>
   <p> <%= users[i].email %> </p>
   <p> <%= users[i].password %> </p>
 <% } %>
+
+<% include ../partials/footer %>
