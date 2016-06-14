@@ -28,7 +28,7 @@ var router = express.Router();
   });
 
   router.get('/login', function(req, res) {
-      res.render('login', { user : req.user });
+      res.render('auth/login');
   });
 
   router.post('/login', passport.authenticate('local'), function(req, res) {
