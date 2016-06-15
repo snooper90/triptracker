@@ -18,7 +18,7 @@ router.post('/', function(req, res, next) {
   var endingPoint = encodeURIComponent(req.body.waypoints.pop())
   var waypoints = req.body.waypoints.map((waypoint) => encodeURIComponent(waypoint)).join('|');
   var mapsUrl = 'https://maps.googleapis.com/maps/api/directions';
-  var url = `${mapsUrl}/json?origin=${startingPoint}&destination=${endingPoint}&waypoints=${waypoints}&key=${googleKey}`
+  var url = `${mapsUrl}/json?origin=${startingPoint}&destination=${endingPoint}&waypoints=${waypoints}&avoid=tolls&key=${googleKey}`
 
   request
     .get({url: url}, function(err, response, body){
