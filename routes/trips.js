@@ -17,6 +17,8 @@ router.post('/', function(req, res, next) {
     start_date: req.body.start_date,
     end_date:req.body.end_date
   });
+  console.log("trip.js startdate: " + trip.start_date);
+  console.log("trip.js enddate: " + trip.end_date);
   trip.save(function(err){
     if (err){
       console.log(err)
