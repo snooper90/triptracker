@@ -7,13 +7,13 @@ router.get('/', function(req, res, next) {
 });
 
 //get the directions from google api
-router.get('/', function(req, res, next) {
+router.get('/directions', function(req, res, next) {
   var googleUrl = "https://maps.googleapis.com/maps/api/directions/json?";
   var origin = 'origin=' + req.body.origin;
   var waypoints = '&waypoints=via:' + req.body.waypoints;
   var destination = '&destination=' + req.body.destination;
   var requestUrl = googleUrl + origin + waypoints + destination + "&key=" + googleKey;
-  res.json(req.user);
+  res.json(req.body);
 });
 
 
