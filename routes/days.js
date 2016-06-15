@@ -12,7 +12,7 @@ router.get('/new', function(req, res, next) {
   res.render('day/new', {tripId: req.params.tripId});
 });
 router.post('/', function(req, res, next) {
-  // TODO after outside api call working make it use request
+  // TODO:20 after outside api call working make it use request
 
   var startingPoint = encodeURIComponent(req.body.starting_location);
   var endingPoint = encodeURIComponent(req.body.waypoints.pop())

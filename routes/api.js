@@ -16,5 +16,5 @@ router.get('/directions', function(req, res, next) {
   res.json(req.body);
 });
 
-
+//TODO:30 choose to keep or remove internal api 
 module.exports = router;

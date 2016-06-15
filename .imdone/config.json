@@ -24,6 +24,10 @@
     {
       "name": "TODO",
       "hidden": false
+    },
+    {
+      "name": "inProgress",
+      "hidden": false
     }
   ],
   "marked": {
