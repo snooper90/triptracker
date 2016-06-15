@@ -3,9 +3,9 @@ var mongoose = require('mongoose'),
 
 
     var daySchema = new Schema({
-      tripId:String,
+      tripId: String,
       date:{type: Date, required: true},
-      starting_point: {type: String, required: true},// TODO remove this and call it waypoints 0
+      starting_point: {type: String},// TODO remove this and call it waypoints 0
       destinations: {
         address: [ String ],
         distances:[ Number ],

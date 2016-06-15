@@ -1,2 +1,5 @@
 <% include ../partials/headder %>
+<% for(var i = 0; i < trips.length; i++){ %>
+<a href="/trips/<%= trips[i]._id %>/days"><%= trips[i].name %></a>
+<% };%>
 <% include ../partials/footer %>

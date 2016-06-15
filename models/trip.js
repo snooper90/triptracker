@@ -1,5 +1,6 @@
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+    Schema = mongoose.Schema,
+    Day = require('./day');
 
     var tripSchema = new Schema({
       userId:String,
@@ -8,24 +9,30 @@ var mongoose = require('mongoose'),
       end_date:{ type: Date, required: true},
       created_at: Date,
       updated_at: Date,
-      //  I should list the dates between start and end
-      days: [String]
+
+      //days: [String]
     });
     // create created date and update apdated date
-    tripSchema.pre('save', function(next){
-      if (!this.days[0]){
+    tripSchema.post('save', function(){
+      // if (!this.days[0]){
+        var trip = this;
         var span = dateDiffInDays(this.start_date, this.end_date) + 1;
         var start = this.start_date;
-        var startDate = new Date(start.getFullYear(), start.getMonth(), start.getDate());
-        console.log("start date: " + start );
-        for (var i = 0; i <= span; i++){
-          console.log(startDate);
-          startDate.setDate(startDate.getDate() + 1);
+        var counterDate = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+        for (var i = 0; i < span; i++){
+          // set day of the day object
+          var day = new Day({ tripId: this._id, date: counterDate})
+          // save the day
+          day.save(function(err, day){
+            console.log(err);
+            //add the day _id to the trip object
+            // trip.days.push(day._id);
+            // console.log(trip.days);
+          });
+          //incriment the day
+          counterDate.setDate(counterDate.getDate() + 1);
         }
-
-      }
-
-      next()
+      // }
     });
 
     //
