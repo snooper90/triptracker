@@ -17,26 +17,31 @@ router.get('/new', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
   // TODO:20 after outside api call working make it use request
-  var startingPoint = encodeURIComponent(req.body.starting_location);
-  var endingPoint = encodeURIComponent(req.body.waypoints.pop())
-  var waypoints = req.body.waypoints.map((waypoint) => encodeURIComponent(waypoint)).join('|');
-  var mapsUrl = 'https://maps.googleapis.com/maps/api/directions';
-  var url = `${mapsUrl}/json?origin=${startingPoint}&destination=${endingPoint}&waypoints=${waypoints}&avoid=tolls&key=${googleKey}`
-  res.send(body)
+
 });
 // view edit
 router.get('/:_id/edit', function(req, res, next){
   Day.find({_id:req.params._id}, function(err, day){
+    if(day.destinations.address[0]){
+      res.render('day/first_edit', {day: day});
+    }
     res.render('day/edit', {day: day});
   })
 
 });
 //edit the day
 router.put('/:_id', function(req, res, next){
+  var startingPoint = encodeURIComponent(req.body.starting_location);
+  var endingPoint = encodeURIComponent(req.body.waypoints.pop());
+  var waypoints = req.body.waypoints.map((waypoint) => encodeURIComponent(waypoint)).join('|');
+  var mapsUrl = 'https://maps.googleapis.com/maps/api/directions';
+  var url = `${mapsUrl}/json?origin=${startingPoint}&destination=${endingPoint}&waypoints=${waypoints}&avoid=tolls&key=${googleKey}`;
+  res.send(body)
   request.get({url: url}, function(err, response, body){
     var discription= req.body.locationDiscription.split(',');
     var distance= [];
     var address= [routes[0].legs[0].start_address];
+    console.log("if address included is too low check the array of routes: " + address);
     for (var i = 0; i < routes[0].legs.length; i++){
       distance.push(routes[0].legs[i].distance);
       address.push(routes[0].legs[i].end_address);

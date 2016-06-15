@@ -1,0 +1,18 @@
+<% include ../partials/headder %>
+
+<h1>Plan Day for <%= "day" %></h1>
+<form class="" action="/trips/<%= tripId %>/days/<%=day._id%>" method="put">
+  <label for="starting_location">Starting point</label>
+  <input type="text" name="starting_location" value="<%= if (day.starting_point) ? day.starting_point : '' %>">
+  <label for="waypoints">Stoping point</label>
+  <input type="text" name="waypoints" placeholder="stop">
+  <label for="location_name">Location discription</label>
+  <input type="text" name="location_name" value="<%= if (day.destinations.address[0]) ? day.destinations.address[0] : '' %>">
+  <label for="waypoints">Stoping location</label>
+  <input type="text" name="waypoints" placeholder="stop">
+  <label for="location_name">Location discription</label>
+  <input type="text" name="location_name" placeholder="Location">
+  <input type="submit" value="">
+</form>
+
+<% include ../partials/footer %>
