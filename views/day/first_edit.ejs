@@ -1,7 +1,7 @@
 <% include ../partials/headder %>
 <div class="container">
   <h1>Plan Day for <%= "day" %></h1>
-  <form class="" action="/trips/<%= tripId %>/days/<%=day._id%>" method="POST">
+  <form class="" id="tripForm" action="/trips/<%= tripId %>/days/<%=day._id%>" method="POST">
     <div class="" id="baseForm">
       <label for="starting_location">Starting point</label>
       <input type="text" name="starting_location" placeholder="Start">

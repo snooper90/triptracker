@@ -2,13 +2,13 @@
 
 ## Notice
 
-The current version uses Google Maps API but does not follow with googles terms. Future versions will use a different matrix solution. Currently the most likely candidate is https://github.com/Project-OSRM/osrm-backend.
+The current version uses Google Maps API but does not adhere with googles terms. Future versions will use a different matrix solution. Currently the most likely candidate is https://github.com/Project-OSRM/osrm-backend.
 ## About
 tripTrackr is a Node/Express app that helps individuals keep track of their milage. It was made with a specific company in mind so the information asked for and provided is sparse and will likely need to be expanded if used outside that company.
 
 
 
-## Download
+## Setup
   1. Clone this repo
   *  npm install dependencies
   *  Set env variables

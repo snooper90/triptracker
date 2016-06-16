@@ -18,18 +18,11 @@ var mongoose = require('mongoose'),
         var trip = this;
         var span = dateDiffInDays(this.start_date, this.end_date) + 1;
         var start = this.start_date;
-        var counterDate = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+        var counterDate = new Date(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate());
+
         for (var i = 0; i < span; i++){
-          // set day of the day object
-          var day = new Day({ tripId: this._id, date: counterDate})
-          // save the day
-          day.save(function(err, day){
-            console.log(err);
-            //add the day _id to the trip object
-            // trip.days.push(day._id);
-            // console.log(trip.days);
-          });
-          //incriment the day
+          createDay(trip, counterDate)
+          console.log('counter date ' +counterDate);
           counterDate.setDate(counterDate.getDate() + 1);
         }
       // }
@@ -47,7 +40,14 @@ var mongoose = require('mongoose'),
 
       next();
     });
-
+    function createDay(trip, date){
+      var saveDate = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+      var day = new Day({ tripId: trip._id, date: saveDate})
+      day.save(function(err, day){
+        console.log(err);
+        console.log('saved date ' + date);
+      });
+    }
 
     function dateDiffInDays(a, b) {
       var _MS_PER_DAY = 1000 * 60 * 60 * 24;

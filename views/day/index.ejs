@@ -1,3 +1,7 @@
 <% include ../partials/headder %>
-<%= days %>
+<% for(var i = 0; i < days.length; i++){ %>
+  <div class="">
+    <a><%= days[i].date %></a>
+  </div>
+<% } %>
 <% include ../partials/footer %>

@@ -3,6 +3,8 @@ var router = express.Router({mergeParams: true});
 var request = require('request');
 var googleKey = process.env.GOOGLE_MATRIX_KEY;
 var Day = require('../models/day');
+
+
 // show all days in a trip
 router.get('/', function(req, res, next) {
   Day.find({tripId:req.params.tripId}, function(err, days){

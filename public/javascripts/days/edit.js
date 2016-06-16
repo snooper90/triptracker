@@ -1,6 +1,10 @@
 $(document).ready(function(){
 
-
+  $('#tripForm').on('submit', function(e){
+    if (!$('.endpoint').last().val()){
+      e.preventDefault()
+    }
+  })
   $('#addNewFormRowBtn').on('click', function(e){
     var value = $('.endpoint').last().val();
     if(value){
