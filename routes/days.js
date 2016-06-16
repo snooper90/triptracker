@@ -6,12 +6,14 @@ var Day = require('../models/day');
 // show all days in a trip
 router.get('/', function(req, res, next) {
   Day.find({tripId:req.params.tripId}, function(err, days){
+    //TODO get all days of a trip view
     res.send(days);
   })
 });
 // show specific day
 router.get('/:_id', function(req, res, next) {
   Day.find({_id:req.params._id}, function(err, days){
+    //TODO get individual day view
     res.send(days);
   })
 });
@@ -19,13 +21,13 @@ router.get('/:_id', function(req, res, next) {
 // view edit
 router.get('/:_id/edit', function(req, res, next){
   var tripId = req.params.tripId;
-
   Day.findById(req.params._id, function(err, day){
+    //TODO consider adding a prepopulated field as well
     var passIn = {day: day, tripId: tripId };
       res.render('day/first_edit', passIn);
   })
 });
-//edit the day TODO refactor PUT days
+//TODO refactor PUT days
 // had to change to post to accept html form
 router.post('/:_id', function(req, res, next){
   var startingPoint = encodeURIComponent(req.body.starting_location);
@@ -39,10 +41,11 @@ router.post('/:_id', function(req, res, next){
     var distance= [];
     var address= [body.routes[0].legs[0].start_address];
     for (var i = 0; i < body.routes[0].legs.length; i++){
+      //TODO floor miles?
       distance.push(body.routes[0].legs[i].distance.value * 0.0006213711);
       address.push(body.routes[0].legs[i].end_address);
     };
-    console.log('about to update');
+    // save the changes of the day
     Day.findById(req.params._id, function (err, day) {
       if (err) return handleError(err);
       day.destinations = {
@@ -52,6 +55,7 @@ router.post('/:_id', function(req, res, next){
       }
       day.save(function (err) {
         if (err) return handleError(err);
+        // TODO reference body instead of req.params in the redirect of day post
         res.redirect('./' + req.params._id);
       });
     });

@@ -3,6 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Trip = require('../models/trip');
 
+//nest days in the trips
 router.use('/:tripId/days', require('./days'));
 
 // show all current trips with current userId
@@ -34,8 +35,6 @@ router.post('/', function(req, res, next) {
 router.get('/new', function(req, res, next) {
   res.render('trip/new');
 });
-
-
 
 function convertTime(day){
   console.log(typeof day);
