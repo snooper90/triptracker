@@ -4,6 +4,13 @@ var request = require('request');
 var googleKey = process.env.GOOGLE_MATRIX_KEY;
 var Day = require('../models/day');
 
+router.use(function loggedIn(req, res, next) {
+    if (req.user) {
+        next();
+    } else {
+        res.redirect('/users/login');
+    }
+});
 
 // show all days in a trip
 router.get('/', function(req, res, next) {
@@ -30,6 +37,7 @@ router.get('/:_id/edit', function(req, res, next){
   })
 });
 //TODO refactor PUT days
+//TODO the request fails if no waypoints
 // had to change to post to accept html form
 router.post('/:_id', function(req, res, next){
   var startingPoint = encodeURIComponent(req.body.starting_location);

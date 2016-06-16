@@ -48,6 +48,12 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+// check if user is logged in and pass it to the request.locals to use in the view
+app.use(function (req, res, next) {
+  res.locals.login = req.isAuthenticated();
+  next();
+});
+
 app.use('/', routes);
 app.use('/users', users);
 app.use('/trips', trips);

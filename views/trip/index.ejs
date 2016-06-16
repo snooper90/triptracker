@@ -1,5 +1,31 @@
 <% include ../partials/headder %>
-<% for(var i = 0; i < trips.length; i++){ %>
-<a href="/trips/<%= trips[i]._id %>/days"><%= trips[i].name %></a>
-<% };%>
+
+<div class="container" id="tripsContainer">
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <h2>Here are your recent trips</h2>
+      <div class="row">
+
+          <% for(var i = 0; i < trips.length; i++){ %>
+          <div class="col-sm-4">
+            <a href="/trips/<%= trips[i]._id %>/days"><%= trips[i].name %></a>
+          </div>
+          <div class="col-sm-4">
+            <%= trips[i].start_date.toDateString() %>
+          </div>
+          <div class="col-sm-4">
+            <%= trips[i].end_date.toDateString() %>
+          </div>
+          <% };%>
+          <div class="col-sm-12">
+            <a class="btn btn-primary btn-lg" id="newDayBtn" href="#">Make a new trip</a>
+          </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
 <% include ../partials/footer %>

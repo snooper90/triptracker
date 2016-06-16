@@ -3,14 +3,22 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Trip = require('../models/trip');
 
+router.use(function loggedIn(req, res, next) {
+    if (req.user) {
+        next();
+    } else {
+        res.redirect('/users/login');
+    }
+});
+
 //nest days in the trips
 router.use('/:tripId/days', require('./days'));
 
 // show all current trips with current userId
 router.get('/', function(req, res, next) {
-  Trip.find({userId: req.user._id}, function(err, trips){
+  Trip.find({userId: req.user._id}).sort({date: 'desc'}).exec(function(err, trips){
     res.render('trip/index', {trips:trips});
-  })
+  });
 });
 
 router.post('/', function(req, res, next) {

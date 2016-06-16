@@ -3,25 +3,38 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
+    <title>Trip Tracker</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" charset="utf-8"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" charset="utf-8"></script>
+
+
     <link rel="stylesheet" href="/stylesheets/style.css">
   </head>
   <body>
     <nav class="navbar navbar-default">
-      <div class="container-fluid">
+      <div class="container">
         <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarContent" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
           <a class="navbar-brand" href="/">TripTracker</a>
         </div>
-        <ul class="nav navbar-nav">
-          <li class=""><a href="/">Home</a></li>
-          <li><a href="/users/login">login</a></li>
-          <li><a href="/users/new">signUp</a></li>
-          <li><a href="/trips/new">Create trip</a></li>
-          <li><a href="/days/new">Create day</a></li>
-        </ul>
+        <div class="collapse navbar-collapse" id='navbarContent'>
+          <ul class="nav navbar-nav navbar-right">
+            <% if (login){ %>
+            <li><a href="/trips/new">Create trip</a></li>
+            <li><a href="/users/logout">Logout</a></li>
+            <% }else{ %>
+            <li><a href="/users/login">login</a></li>
+            <li><a href="/users/new">Sign up</a></li>
+            <% } %>
+          </ul>
+        </div>
+
       </div>
     </nav>

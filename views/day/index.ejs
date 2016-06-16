@@ -1,7 +1,7 @@
 <% include ../partials/headder %>
 <% for(var i = 0; i < days.length; i++){ %>
   <div class="">
-    <a><%= days[i].date %></a>
+    <a href="./days/<%= days[i]._id %>/edit"><%= days[i].date.toDateString() %></a>
   </div>
 <% } %>
 <% include ../partials/footer %>
