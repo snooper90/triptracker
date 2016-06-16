@@ -7,14 +7,14 @@ var Day = require('../models/day');
 router.get('/', function(req, res, next) {
   Day.find({tripId:req.params.tripId}, function(err, days){
     //TODO get all days of a trip view
-    res.send(days);
+    res.render('day/index', {days: days});
   })
 });
 // show specific day
 router.get('/:_id', function(req, res, next) {
-  Day.find({_id:req.params._id}, function(err, days){
+  Day.findById(req.params._id, function(err, day){
     //TODO get individual day view
-    res.send(days);
+    res.render('day/show', {day: day});
   })
 });
 
