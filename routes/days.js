@@ -39,7 +39,7 @@ router.post('/:_id', function(req, res, next){
     var distance= [];
     var address= [body.routes[0].legs[0].start_address];
     for (var i = 0; i < body.routes[0].legs.length; i++){
-      distance.push(body.routes[0].legs[i].distance.value);
+      distance.push(body.routes[0].legs[i].distance.value * 0.0006213711);
       address.push(body.routes[0].legs[i].end_address);
     };
     console.log('about to update');
