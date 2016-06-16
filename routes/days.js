@@ -3,56 +3,58 @@ var router = express.Router({mergeParams: true});
 var request = require('request');
 var googleKey = process.env.GOOGLE_MATRIX_KEY;
 var Day = require('../models/day');
-/* GET home page. */
+// show all days in a trip
 router.get('/', function(req, res, next) {
   Day.find({tripId:req.params.tripId}, function(err, days){
     res.send(days);
   })
-
+});
+// show specific day
+router.get('/:_id', function(req, res, next) {
+  Day.find({_id:req.params._id}, function(err, days){
+    res.send(days);
+  })
 });
 
-router.get('/new', function(req, res, next) {
-
-});
-
-router.post('/', function(req, res, next) {
-  // TODO:20 after outside api call working make it use request
-
-});
 // view edit
 router.get('/:_id/edit', function(req, res, next){
-  Day.find({_id:req.params._id}, function(err, day){
-    if(day.destinations.address[0]){
-      res.render('day/first_edit', {day: day});
-    }
-    res.render('day/edit', {day: day});
-  })
+  var tripId = req.params.tripId;
 
+  Day.findById(req.params._id, function(err, day){
+    var passIn = {day: day, tripId: tripId };
+      res.render('day/first_edit', passIn);
+  })
 });
-//edit the day
-router.put('/:_id', function(req, res, next){
+//edit the day TODO refactor PUT days
+// had to change to post to accept html form
+router.post('/:_id', function(req, res, next){
   var startingPoint = encodeURIComponent(req.body.starting_location);
   var endingPoint = encodeURIComponent(req.body.waypoints.pop());
   var waypoints = req.body.waypoints.map((waypoint) => encodeURIComponent(waypoint)).join('|');
   var mapsUrl = 'https://maps.googleapis.com/maps/api/directions';
   var url = `${mapsUrl}/json?origin=${startingPoint}&destination=${endingPoint}&waypoints=${waypoints}&avoid=tolls&key=${googleKey}`;
-  res.send(body)
   request.get({url: url}, function(err, response, body){
-    var discription= req.body.locationDiscription.split(',');
+    body = JSON.parse(body);
+    var discription= req.body.locationDiscription;
     var distance= [];
-    var address= [routes[0].legs[0].start_address];
-    console.log("if address included is too low check the array of routes: " + address);
-    for (var i = 0; i < routes[0].legs.length; i++){
-      distance.push(routes[0].legs[i].distance);
-      address.push(routes[0].legs[i].end_address);
+    var address= [body.routes[0].legs[0].start_address];
+    for (var i = 0; i < body.routes[0].legs.length; i++){
+      distance.push(body.routes[0].legs[i].distance.value);
+      address.push(body.routes[0].legs[i].end_address);
     };
-    Day.update({_id:req.params._id}, {
-      destinations:{
+    console.log('about to update');
+    Day.findById(req.params._id, function (err, day) {
+      if (err) return handleError(err);
+      day.destinations = {
         discription: discription,
         distances: distance,
         address: address
       }
-    })
+      day.save(function (err) {
+        if (err) return handleError(err);
+        res.redirect('./' + req.params._id);
+      });
+    });
   })
 })
 module.exports = router;
