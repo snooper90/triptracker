@@ -5,7 +5,13 @@ $(document).ready(function(){
       e.preventDefault()
     }
   })
-  $('#addNewFormRowBtn').on('click', function(e){
+
+  $('#removeFormRowBtn').on('click', function(e){
+    e.preventDefault();
+    $('#expandForm').children().last().remove();
+  });
+
+  $('#addNewFormRowBtn').on('click', function(  ){
     var value = $('.endpoint').last().val();
     if(value){
       $('#expandForm').append(formSection(value))
