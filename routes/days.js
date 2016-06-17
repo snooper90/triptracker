@@ -66,8 +66,14 @@ router.get('/:_id/clear', function(req, res, next){
 // had to change to post to accept html form
 router.post('/:_id', function(req, res, next){
   var startingPoint = encodeURIComponent(req.body.starting_location);
-  var endingPoint = encodeURIComponent(req.body.waypoints.pop());
-  var waypoints = req.body.waypoints.map((waypoint) => encodeURIComponent(waypoint)).join('|');
+
+  if (typeof req.body.waypoints == 'string'){
+    var endingPoint = encodeURIComponent(req.body.waypoints);
+    var waypoints = [];
+  }else{
+    var endingPoint = encodeURIComponent(req.body.waypoints.pop());
+    var waypoints = req.body.waypoints.map((waypoint) => encodeURIComponent(waypoint)).join('|');
+  }
   var mapsUrl = 'https://maps.googleapis.com/maps/api/directions';
   var url = `${mapsUrl}/json?origin=${startingPoint}&destination=${endingPoint}&waypoints=${waypoints}&avoid=tolls&key=${googleKey}`;
   request.get({url: url}, function(err, response, body){
