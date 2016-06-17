@@ -29,9 +29,22 @@ tripTrackr is a Node/Express app that helps individuals keep track of their mila
 ### Reason behind the app
 This app was made to solve the problem a friend of mine has had. Because of that the interface is set up according to the information I gathered directly from her.
 
+### Requested Features
+  * Create trips that span days
+  * Be able to give a starting point and an ending point
+  * Be able to create more than one leg of the trip
+  * When creating a new leg have the starting point be the ending point of the last leg.
+  * Get a table that contains the days information.
+
 ### Technologies
   * Node/Express
   * MongoDB
   * GoogleAPI
   * Passport
-  * Heroku 
+  * Heroku
+
+### Wireframes
+Coming Soon.
+
+### User Stories
+Coming Soon.
