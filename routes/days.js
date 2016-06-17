@@ -14,7 +14,7 @@ router.use(function loggedIn(req, res, next) {
 
 // show all days in a trip
 router.get('/', function(req, res, next) {
-  Day.find({tripId:req.params.tripId}, function(err, days){
+  Day.find({tripId:req.params.tripId}).sort({date: 'desc'}).exec(function(err, days) {
     Trip.findById(req.params.tripId, function(err, trip){
       res.render('day/index', {days: days, trip: trip});
     })
