@@ -7,13 +7,16 @@
       <div class="row">
 
           <% for(var i = 0; i < trips.length; i++){ %>
-          <div class="col-sm-4">
+          <div class="col-sm-3">
             <a href="/trips/<%= trips[i]._id %>/days"><%= trips[i].name %></a>
           </div>
-          <div class="col-sm-4">
+          <div class="col-sm-3">
+            <a href="/trips/<%= trips[i]._id %>/delete">Delete</a> 
+          </div>
+          <div class="col-sm-3">
             <%= trips[i].start_date.toDateString() %>
           </div>
-          <div class="col-sm-4">
+          <div class="col-sm-3">
             <%= trips[i].end_date.toDateString() %>
           </div>
           <% };%>

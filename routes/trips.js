@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Trip = require('../models/trip');
-
+var Day = require('../models/day')
 router.use(function loggedIn(req, res, next) {
     if (req.user) {
         next();
@@ -37,6 +37,16 @@ router.post('/', function(req, res, next) {
     }
   })
 });
+
+router.get('/:_id/delete', function(req, res, next){
+  Trip.find({ _id:req.params._id }).remove( function(err){
+    console.log("delete trip err :" + err) ;
+    Day.find({tripId: req.params._id}).remove(function(err){
+      console.log("delete day err :" + err) ;
+      res.redirect('/trips')
+    })
+  });
+})
 
 router.get('/new', function(req, res, next) {
   res.render('trip/new');
