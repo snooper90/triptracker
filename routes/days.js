@@ -36,6 +36,24 @@ router.get('/:_id/edit', function(req, res, next){
       res.render('day/first_edit', passIn);
   })
 });
+router.get('/:id/clear', function(req, res, next){
+  Day.findById(req.params._id, function(err, day){
+    var tripId = day.tripId;
+    var date = day.date;
+    day = {
+      tripId: tripId,
+      date: date,
+      starting_point: '',
+      destinations: {
+        address: [],
+        distances:[],
+        discription:[]
+      }
+    }
+    day.save()
+  });
+});
+
 //TODO refactor PUT days
 //TODO the request fails if no waypoints
 // had to change to post to accept html form

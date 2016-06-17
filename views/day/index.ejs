@@ -1,7 +1,11 @@
 <% include ../partials/headder %>
+
+
 <% for(var i = 0; i < days.length; i++){ %>
   <div class="">
-    <a href="./days/<%= days[i]._id %>/edit"><%= days[i].date.toDateString() %></a>
+    <a href="./days/<%= days[i]._id %>"><%= days[i].date.toDateString() %></a>
+    <a href="./days/<%= days[i]._id %>/edit">Edit</a>
+    <a href="./days/<%= days[i]._id %>/delete">Delete</a>
   </div>
 <% } %>
 <% include ../partials/footer %>

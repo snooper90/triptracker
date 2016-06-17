@@ -12,8 +12,9 @@
           <div class="card-block">
             <h4 class="card-title">Sign Up/Sign In</h4>
             <p class="card-text">in just a few minutes you can have access to our system. <br> Why don't you let us make your work easier?</p>
-            <a href="/users/new" class="btn btn-primary">Sign Up</a>
-            <a href="/users/login" class="btn btn-primary">Sign In</a>
+
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signIn">Sign In</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signUp">Sign Up</button>
           </div>
         </div>
         <div class="card col-sm-4 text-xs-center card-primary">
@@ -43,5 +44,66 @@
       </div>
     </div>
   </div>
+</div>
+
+
+<div class="container">
+	<div class="row">
+
+        <%# modal for signIn %>
+        <div class="modal" id="signIn">
+          <div class="col-sm-4 col-sm-offset-4 formBkg">
+            <div class="modal-header">
+              <button type="button" class="btn bt-primary close" data-dismiss="modal">Close X</button>
+              <h3>Login to TripTracker</h3>
+            </div>
+            <div class="modal-body">
+              <form action="/users/login" method="post" name="login_form">
+                <p>
+                  <input type="text" name="email" placeholder="email">
+                </p>
+                <p>
+                  <input type="text" name="password" placeholder="password">
+                </p>
+                <p><button type="submit" class="btn btn-primary">Sign in</button>
+                </p>
+              </form>
+            </div>
+            <div class="modal-footer">
+              New To TripTracker?
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signIn, #signUp">Register</button>
+
+            </div>
+          </div>
+        </div>
+
+        <%# modal for signIn %>
+        <div class="modal" id="signUp">
+          <div class="col-sm-4 col-sm-offset-4 formBkg">
+            <div class="modal-header">
+              <button type="button" class="btn bt-primary close" data-dismiss="modal">Close</button>
+              <h3>Sign up for TripTracker</h3>
+            </div>
+            <div class="modal-body">
+              <form  action="/users/register" method="post" name="signUp_form">
+                <p>
+                  <input type="text" name="email" placeholder="email">
+                </p>
+                <p>
+                  <input type="text" name="password" placeholder="password">
+                </p>
+                <p><button type="submit" class="btn btn-primary">Sign Up</button>
+                </p>
+              </form>
+            </div>
+            <div class="modal-footer">
+              Already have an account?
+              <button href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#signIn ,#signUp">Sign In</button>
+            </div>
+          </div>
+        </div>
+
+
+	</div>
 </div>
 <% include ./partials/footer %>
