@@ -30,12 +30,12 @@ router.post('/', function(req, res, next) {
     });
   console.log("trip.js startdate: " + trip.start_date);
   console.log("trip.js enddate: " + trip.end_date);
-  trip.save(function(err){
+  trip.save(function(err, data){
     if (err){
       console.log(err)
       return res.render('trip/new', { trip : trip })
     }else{
-      res.send('working');
+      res.redirect('/trips/'+data._id);
     }
   })
 });
