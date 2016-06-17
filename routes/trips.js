@@ -28,14 +28,12 @@ router.post('/', function(req, res, next) {
     start_date: convertTime(new Date(req.body.start_date)),
     end_date:convertTime(new Date(req.body.end_date))
     });
-  console.log("trip.js startdate: " + trip.start_date);
-  console.log("trip.js enddate: " + trip.end_date);
   trip.save(function(err, data){
     if (err){
       console.log(err)
       return res.render('trip/new', { trip : trip })
     }else{
-      res.redirect('/trips/'+data._id);
+      res.redirect('/trips/'+data._id+'/days');
     }
   })
 });
@@ -45,7 +43,6 @@ router.get('/new', function(req, res, next) {
 });
 
 function convertTime(day){
-  console.log(typeof day);
   var utcTime = new Date(day.getUTCFullYear(), day.getUTCMonth(), day.getUTCDate());
   return utcTime
 }

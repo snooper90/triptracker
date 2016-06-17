@@ -16,10 +16,9 @@ router.get('/new', function(req, res) {
 router.post('/register', function(req, res) {
   User.register(new User({ email: req.body.email }), req.body.password, function(err, user) {
       if (err) {
-                console.log(err);
-          return res.render('auth/register', { user : user });
-      }
-
+        console.log(err);
+        return res.render('auth/register', { user : user });
+      };
       passport.authenticate('local')(req, res, function () {
         res.redirect('/trips');
       });
