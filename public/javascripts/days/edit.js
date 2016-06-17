@@ -15,5 +15,5 @@ $(document).ready(function(){
 });
 
 function formSection(value){
-  return '<div><label for="start">Starting point</label><input type="text" name="start" value="'+ value +'"><label for="waypoints">Stoping point</label><input type="text" class="endpoint" name="waypoints" placeholder="stop"><label for="location_name">Location discription</label><input type="text" name="locationDiscription" placeholder="reason"></div>'
+  return '<div class="col-sm-12"><label for="start">Starting point</label> <input type="text" name="start" value="'+ value +'"> <label for="waypoints">Stoping point</label> <input type="text" class="endpoint" name="waypoints" placeholder="stop"> <label for="location_name">Location discription</label> <input type="text" name="locationDiscription" placeholder="reason"></div>'
 }
