@@ -37,7 +37,7 @@ nav.navbar.navbar-default{
 .nav.navbar-nav.navbar-right{
   margin-right: 10px;
 }
-#newDayBtn{
+#newDayBtn, #backToTripsBtn{
   width:100%;
   margin-top: 10px;
 }
@@ -48,3 +48,4 @@ nav.navbar.navbar-default{
   background-color: #f1f1f1;
   border-radius: 10px;
 }
+%

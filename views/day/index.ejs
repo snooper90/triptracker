@@ -1,11 +1,37 @@
 <% include ../partials/headder %>
 
+<div class="row">
+  <div class="col-sm-6 col-sm-offset-3 text-center  ">
+    <h2>Days for <%= trip.name %></h2>
+    <div class="row">
+      <% for(var i = 0; i < days.length; i++){ %>
+        <div class="alternateColor">
+          <div class="col-sm-3 col-sm-offset-1">
+            <a href="./days/<%= days[i]._id %>"><%= days[i].date.toDateString() %></a>
+          </div>
+          <div class="col-sm-1">
+            <a href="./days/<%= days[i]._id %>/edit">Edit</a>
+          </div>
+          <div class="col-sm-1">
+            <a href="./days/<%= days[i]._id %>/clear">Clear</a>
+          </div>
+          <div class="col-sm-6">
+            <% if(days[i].destinations.distances[0]){ %>
+            Distance:<%= days[i].destinations.distances.reduce((x, y) => x + y)%>
+            <% }else{ %>
+            No routes listed for this day
+            <% } %>
+          </div>
+        </div>
+      <% } %>
 
-<% for(var i = 0; i < days.length; i++){ %>
-  <div class="">
-    <a href="./days/<%= days[i]._id %>"><%= days[i].date.toDateString() %></a>
-    <a href="./days/<%= days[i]._id %>/edit">Edit</a>
-    <a href="./days/<%= days[i]._id %>/delete">Delete</a>
+
+        <a class="btn btn-primary btn-lg" id="backToTripsBtn" href="/trips">Back to your trips</a>
+
+    </div>
   </div>
-<% } %>
+</div>
+
+
+
 <% include ../partials/footer %>
