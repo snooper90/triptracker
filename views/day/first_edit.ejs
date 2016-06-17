@@ -1,24 +1,31 @@
 <% include ../partials/headder %>
-<div class="container">
-  <h1>Plan Day for <%= "day" %></h1>
-  <form class="" id="tripForm" action="/trips/<%= tripId %>/days/<%=day._id%>" method="POST">
-    <div class="" id="baseForm">
-      <label for="starting_location">Starting point</label>
-      <input type="text" name="starting_location" placeholder="Start">
-      <label for="waypoints">Stoping point</label>
-      <input type="text" class="endpoint" name="waypoints" placeholder="stop">
-      <label for="location_name">Location discription</label>
-      <input type="text" name="locationDiscription" placeholder="reason">
-    </div>
-    <div class="" id="expandForm">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-9 col-sm-offset-2">
+      <h1>Plan Day for <%= "day" %></h1>
+      <form class="" id="tripForm" action="/trips/<%= tripId %>/days/<%=day._id%>" method="POST">
+        <div class="col-sm-12">
+          <div id="baseForm">
+            <label for="starting_location">Starting point</label>
+            <input type="text" name="starting_location" placeholder="Start">
+            <label for="waypoints">Stoping point</label>
+            <input type="text" class="endpoint" name="waypoints" placeholder="stop">
+            <label for="location_name">Location discription</label>
+            <input type="text" name="locationDiscription" placeholder="reason">
+          </div>
+        </div>
+        <div class="" id="expandForm">
 
+        </div>
+        <div class="" id="btnForForm">
+          <button class="btn btn-primary" id="addNewFormRowBtn">Add Leg+</button>
+          <button class="btn btn-primary" type="submit">Save Trip</button>
+        </div>
+      </form>
     </div>
-    <div class="" id="btnForForm">
-      <button type="button" id="addNewFormRowBtn">+</button>
-      <input type="submit" name="name" value="Save Trip">
-    </div>
-  </form>
+  </div>
 </div>
+
 
 <script src="/javascripts/days/edit.js" charset="utf-8"></script>
 

@@ -51,3 +51,7 @@ nav.navbar.navbar-default{
 #createTripForm input{
   width:100%;
 }
+
+#btnForForm .btn{
+  margin-top: 10px;
+}
