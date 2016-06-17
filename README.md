@@ -17,7 +17,8 @@ tripTrackr is a Node/Express app that helps individuals keep track of their mila
   * npm start
 
 ## Future Goals
-  * Change API from google to an alternate
+  * Change API from google to an alternate.
+  * Add printable forms.
   * Update app to use react.
   * Make the app more mobile friendly.
 

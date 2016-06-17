@@ -56,7 +56,7 @@ router.get('/:_id/clear', function(req, res, next){
     day.save(function (err) {
       if (err) return handleError(err);
       // TODO reference body instead of req.params in the redirect of day post
-      res.redirect('/trips/'+ req.params.tripId +'/days/'+ day._id);
+      res.redirect('/trips/'+ req.params.tripId +'/days');
     });
   });
 });
@@ -65,24 +65,20 @@ router.get('/:_id/clear', function(req, res, next){
 //TODO the request fails if no waypoints
 // had to change to post to accept html form
 router.post('/:_id', function(req, res, next){
-  if (req.body.waypoint){
-    var waypoints = req.body.waypoints.map((waypoint) => encodeURIComponent(waypoint)).join('|');
-    var endingPoint = encodeURIComponent(req.body.waypoints.pop());
-  }else{
-    var endingPoint = waypoints;
-    var waypoints = [];
-  };
   var startingPoint = encodeURIComponent(req.body.starting_location);
+  var endingPoint = encodeURIComponent(req.body.waypoints.pop());
+  var waypoints = req.body.waypoints.map((waypoint) => encodeURIComponent(waypoint)).join('|');
   var mapsUrl = 'https://maps.googleapis.com/maps/api/directions';
   var url = `${mapsUrl}/json?origin=${startingPoint}&destination=${endingPoint}&waypoints=${waypoints}&avoid=tolls&key=${googleKey}`;
   request.get({url: url}, function(err, response, body){
     body = JSON.parse(body);
+    var address= [body.routes[0].legs[0].start_address];
     var discription= req.body.locationDiscription;
     var distance= [];
-    var address= [body.routes[0].legs[0].start_address];
+
     for (var i = 0; i < body.routes[0].legs.length; i++){
       //TODO floor miles?
-      distance.push(body.routes[0].legs[i].distance.value * 0.0006213711);
+      distance.push(Math.floor(body.routes[0].legs[i].distance.value * 0.0006213711));
       address.push(body.routes[0].legs[i].end_address);
     };
     // save the changes of the day

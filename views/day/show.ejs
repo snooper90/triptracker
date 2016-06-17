@@ -1,55 +1,63 @@
 <% include ../partials/headder %>
-<div id="table">
-  <h2>
-    Milage for
-    <%= day.date.toDateString().substring(4) %>
-  </h2>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+      <h2>
+        Milage for
+        <%= day.date.toDateString().substring(4) %>
+      </h2>
 
-  <table>
-    <thead>
-      <tr>
-        <th>
-          Starting location
-        </th>
-        <th>
-          Ending location
-        </th>
-        <th>
-          Miles
-        </th>
-        <th>
-          Reason
-        </th>
-      </tr>
-    </thead>
-    <tfoot>
-      <tr>
-        <td>Total</td>
-        <td></td>
-        <td><%= day.destinations.distances.reduce((x, y) => x + y) %></td>
-        <td></td>
-      </tr>
-    </tfoot>
-    <tbody>
-      <% for(var i = 0; i < day.destinations.address.length -1; i++ ){ %>
-      <tr>
-        <td>
-          <%= day.destinations.address[i] %>
-        </td>
-        <td>
-          <%= day.destinations.address[i + 1] %>
-        </td>
-        <td>
-          <%= day.destinations.distances[i] %>
-        </td>
-        <td>
-          <%= day.destinations.discription[i] %>
-        </td>
-      </tr>
-      <% } %>
-    </tbody>
+      <table class="table-responsive">
+        <thead>
+          <tr>
+            <th>
+              Starting location
+            </th>
+            <th>
+              Ending location
+            </th>
+            <th>
+              Miles
+            </th>
+            <th>
+              Reason
+            </th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <td>Total</td>
+            <td></td>
+            <td><%= day.destinations.distances.reduce((x, y) => x + y) %></td>
+            <td></td>
+          </tr>
+        </tfoot>
+        <tbody>
+          <% for(var i = 0; i < day.destinations.address.length -1; i++ ){ %>
+          <tr>
+            <td>
+              <%= day.destinations.address[i] %>
+            </td>
+            <td>
+              <%= day.destinations.address[i + 1] %>
+            </td>
+            <td>
+              <%= day.destinations.distances[i] %>
+            </td>
+            <td>
+              <%= day.destinations.discription[i] %>
+            </td>
+          </tr>
+          <% } %>
+        </tbody>
 
-  </table>
+      </table>
+      <a class="btn btn-primary btn-lg" id="BackToDays" href="/trips/<%= day.tripId %>/days">Back to see all the days</a>
+
+    </div>
+
+  </div>
 </div>
+
 
 <% include ../partials/footer %>

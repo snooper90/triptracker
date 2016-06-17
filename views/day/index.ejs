@@ -4,34 +4,33 @@
   <div class="col-sm-6 col-sm-offset-3 text-center  ">
     <h2>Days for <%= trip.name %></h2>
     <div class="row">
-      <% for(var i = 0; i < days.length; i++){ %>
-        <div class="alternateColor">
-          <div class="col-sm-3 col-sm-offset-1">
-            <a href="./days/<%= days[i]._id %>"><%= days[i].date.toDateString() %></a>
-          </div>
-          <div class="col-sm-1">
-            <a href="./days/<%= days[i]._id %>/edit">Edit</a>
-          </div>
-          <div class="col-sm-1">
-            <a href="./days/<%= days[i]._id %>/clear">Clear</a>
-          </div>
-          <div class="col-sm-6">
-            <% if(days[i].destinations.distances[0]){ %>
-            Distance:<%= days[i].destinations.distances.reduce((x, y) => x + y)%>
-            <% }else{ %>
-            No routes listed for this day
-            <% } %>
-          </div>
-        </div>
-      <% } %>
-
-
+          <table class="table table-bordered table-hover table-responsive">
+            <tbody>
+              <% for(var i = 0; i < days.length; i++){ %>
+              <tr>
+                <td>
+                  <a href="./days/<%= days[i]._id %>"><%= days[i].date.toDateString() %></a>
+                </td>
+                <td>
+                  <a href="./days/<%= days[i]._id %>/edit">Edit</a>
+                </td>
+                <td>
+                  <a href="./days/<%= days[i]._id %>/clear">Clear</a>
+                </td>
+                <td>
+                  <% if(days[i].destinations.distances[0]){ %>
+                  Distance:<%= days[i].destinations.distances.reduce((x, y) => x + y)%>
+                  <% }else{ %>
+                  No routes listed for this day
+                  <% } %>
+                </td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
         <a class="btn btn-primary btn-lg" id="backToTripsBtn" href="/trips">Back to your trips</a>
-
     </div>
   </div>
 </div>
-
-
 
 <% include ../partials/footer %>

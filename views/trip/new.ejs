@@ -1,15 +1,29 @@
 <% include ../partials/headder %>
 
-
-<h1>Trips</h1>
-<form class="" action="/trips" method="post">
-  <label for="name">Name of trip</label>
-  <input type="text" name="name" placeholder="name">
-  <label for="start_date">Start date</label>
-  <input type="date" name="start_date" placeholder="Starting Date">
-  <label for="end_date">End date</label>
-  <input type="date" name="end_date" placeholder="Ending Date">
-</form>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-2 col-sm-offset-5">
+      <div class="row">
+        <h1>Trips</h1>
+        <form id="createTripForm" class="" action="/trips" method="post">
+          <div class="form-group">
+            <label for="name">Name of trip:</label>
+            <input type="text" name="name" placeholder="name">
+          </div>
+          <div class="form-group">
+            <label for="start_date">Start date:</label>
+            <input type="date" name="start_date" placeholder="Starting Date">
+          </div>
+          <div class="form-group">
+            <label for="end_date">End date:</label>
+            <input type="date" name="end_date" placeholder="Ending Date">
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <% include  ../partials/footer %>
