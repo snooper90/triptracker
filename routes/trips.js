@@ -3,6 +3,8 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Trip = require('../models/trip');
 var Day = require('../models/day')
+
+// auth middleware
 router.use(function loggedIn(req, res, next) {
     if (req.user) {
         next();
@@ -20,14 +22,16 @@ router.get('/', function(req, res, next) {
     res.render('trip/index', {trips:trips});
   });
 });
-
+// make a new trip
 router.post('/', function(req, res, next) {
+  //construct new trip
   var trip = new Trip({
     userId:req.user._id,
     name:req.body.name,
     start_date: convertTime(new Date(req.body.start_date)),
     end_date:convertTime(new Date(req.body.end_date))
     });
+  //save trip
   trip.save(function(err, data){
     if (err){
       console.log(err)
@@ -52,6 +56,7 @@ router.get('/new', function(req, res, next) {
   res.render('trip/new');
 });
 
+//takes a date and returns a new date in the UTC time
 function convertTime(day){
   var utcTime = new Date(day.getUTCFullYear(), day.getUTCMonth(), day.getUTCDate());
   return utcTime

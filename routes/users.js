@@ -4,15 +4,11 @@ var User = require('../models/user');
 var days = require('./days');
 var router = express.Router();
 
-
-router.get('/', function (req, res) {
-    res.render('index');
-});
-
+//sign up form (not currently in use)
 router.get('/new', function(req, res) {
     res.render('auth/register');
 });
-
+// save new user
 router.post('/register', function(req, res) {
   User.register(new User({ email: req.body.email }), req.body.password, function(err, user) {
       if (err) {
@@ -24,15 +20,18 @@ router.post('/register', function(req, res) {
       });
   });
 });
+//sign up form (not currently in use)
 
 router.get('/login', function(req, res) {
     res.render('auth/login');
 });
 
+//login request
 router.post('/login', passport.authenticate('local'), function(req, res) {
     res.redirect('/trips');
 });
 
+//logout request
 router.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/')

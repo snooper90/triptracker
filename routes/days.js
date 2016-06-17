@@ -4,12 +4,14 @@ var request = require('request');
 var googleKey = process.env.GOOGLE_MATRIX_KEY;
 var Day = require('../models/day');
 var Trip = require('../models/trip');
+
+// auth middleware
 router.use(function loggedIn(req, res, next) {
     if (req.user) {
         next();
     } else {
         res.redirect('/');
-    }
+    };
 });
 
 // show all days in a trip
@@ -20,10 +22,10 @@ router.get('/', function(req, res, next) {
     })
   })
 });
+
 // show specific day
 router.get('/:_id', function(req, res, next) {
   Day.findById(req.params._id, function(err, day){
-    //TODO get individual day view
     if(day.destinations.address[1]){
       res.render('day/show', {day: day});
     }else{
@@ -41,12 +43,10 @@ router.get('/:_id/edit', function(req, res, next){
       res.render('day/first_edit', passIn);
   })
 });
+
+// clear the day of user inputed data
 router.get('/:_id/clear', function(req, res, next){
   Day.findById(req.params._id, function(err, day){
-    var tripId = day.tripId;
-    var date = day.date;
-    day.tripId = tripId;
-    day.date = date;
     day.starting_point = '',
     day.destinations = {
         address: [],
@@ -62,11 +62,12 @@ router.get('/:_id/clear', function(req, res, next){
 });
 
 //TODO refactor PUT days
-//TODO the request fails if no waypoints
 // had to change to post to accept html form
+//TODO change front end sumbmits to AJAX to allow for more restful routing;
 router.post('/:_id', function(req, res, next){
+//get variables to send to googleAPI
   var startingPoint = encodeURIComponent(req.body.starting_location);
-
+  //check to see if there is more than one waypoint
   if (typeof req.body.waypoints == 'string'){
     var endingPoint = encodeURIComponent(req.body.waypoints);
     var waypoints = [];
@@ -76,8 +77,10 @@ router.post('/:_id', function(req, res, next){
   }
   var mapsUrl = 'https://maps.googleapis.com/maps/api/directions';
   var url = `${mapsUrl}/json?origin=${startingPoint}&destination=${endingPoint}&waypoints=${waypoints}&avoid=tolls&key=${googleKey}`;
+//send the request to googleAPI
   request.get({url: url}, function(err, response, body){
     body = JSON.parse(body);
+    //set variables for the day.destinations
     var address= [body.routes[0].legs[0].start_address];
     var discription= req.body.locationDiscription;
     var distance= [];
@@ -87,7 +90,7 @@ router.post('/:_id', function(req, res, next){
       distance.push(Math.floor(body.routes[0].legs[i].distance.value * 0.0006213711));
       address.push(body.routes[0].legs[i].end_address);
     };
-    // save the changes of the day
+    // find and then save the day
     Day.findById(req.params._id, function (err, day) {
       if (err) return handleError(err);
       day.destinations = {
@@ -97,10 +100,9 @@ router.post('/:_id', function(req, res, next){
       }
       day.save(function (err) {
         if (err) return handleError(err);
-        // TODO reference body instead of req.params in the redirect of day post
         res.redirect('./' + req.params._id);
       });
     });
-  })
-})
+  });
+});
 module.exports = router;
