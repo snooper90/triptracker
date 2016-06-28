@@ -42,9 +42,3 @@ This app was made to solve the problem a friend of mine has had. Because of that
   * GoogleAPI
   * Passport
   * Heroku
-
-### Wireframes
-Coming Soon.
-
-### User Stories
-Coming Soon.
